@@ -1,0 +1,6 @@
+Adrese Dzīvokļu_Skaits Stāvu_Skaits Platums
+Andreja_21 100 10 100.50
+Liepiņas_40 2202 200 212
+Jekaba_Prieka_iela_21 33 333 333
+Prieka_233 1333330 20 30
+Riepas_A1 1 2 3 
