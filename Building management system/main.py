@@ -28,13 +28,20 @@ while(True):
             choice = viewDataScreen(user_choice)
             os.system("cls")
             txt = openTextFile("r", user_choice)
-            if(choice == 1):
+            if(choice == 1): # user chose to view data as it is
                 printTxtFile(txt)
                 input("Press any button to continue: ")
                 os.system("cls")
-            elif(choice == 2):
-                print("a")
-            elif(choice == 3):
+            elif(choice == 2): # user chose to sort data
+                choice = chooseSortMethodScreen(txt)
+
+                if(choice >len(txt[0])):
+                    os.system("cls")
+                else:
+                    chooseUpOrDown(txt, choice)
+                    input("Press any button to continue: ")
+                    os.system("cls")
+            elif(choice == 3): # user chose to filter data
                 data = 1
                 #search for specific data
             elif(choice == 4): break
