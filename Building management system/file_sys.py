@@ -1,9 +1,29 @@
 import os
 
+def userChoosesFile():
+    print_top()
+    print(" Which file would you like to open ?\n")
+    print(" 1. Buildings\n")
+    print(" 2. Apartments\n")
+    print(" 3. Apartment owners\n")
+    print(" 4. Go back\n")
+    print("*" * 50,"\n")
+    user_choice = input("Enter your choice: ")
+    if user_choice in("1", "2", "3", "4"): 
+        return int(user_choice[0])
+    
+    else:
+        os.system("cls")
+        return userChoosesFile()
+
+
+def print_top():
+    print("*" * 50)
+    print(" "* 10, "BUILDING MANAGEMENT SYSTEM", " "*10)
+    print("*" * 50)
+
 def printTxtFile(file): # outputs text file without any underscores (_)
-    print("*" * 50)
-    print(" "* 10, " DATA SORTING ", " "*10)
-    print("*" * 50)
+    print_top()
     mx = max((len(str(element)) for sub in file for element in sub)) + 1 # +1 to add more padding
     for row in file:
         print(" ".join(["{:<{mx}}".format(element.replace("_"," "),mx=mx) for element in row]))
@@ -127,7 +147,13 @@ def chooseSortMethodScreen(file): # screen for user to choose what to sort by
     print("*" * 50,"\n")
     user_choice = input("Enter your choice: ")
     # makes sure that user doesn't choose something beyond scope
-    if (int(user_choice) <= (len(file[0])+1) and int(user_choice)>0):
+    try:
+        user_choice = int(user_choice)
+    except ValueError:
+        user_choice = user_choice
+
+    if (user_choice in range(1, len(file[0])+2)):
+        user_choice = str(user_choice)
         return int(user_choice[0])
     else:
         os.system("cls")
@@ -158,9 +184,27 @@ def chooseUpOrDown(file, choice): # function for user to choose how they want th
             except ValueError:
                 sortByStr(file, choice-1, True)
         if(user_choice == "3"): # if user chose to go back
-            os.system("cls")
             return
     else:
         os.system("cls")
-        return chooseUpOrDown(file)
+        return chooseUpOrDown(file, choice)
 
+def searchForUserInput(data):
+    print_top()
+    info = data[0]
+    data.pop(0)
+    filteredList = []
+    search = input("Enter a keyword to search for: ")
+    for j in range(0,len(data)):
+        for i in range(0,len(data[0])):
+            if search.upper() in data[j][i].upper():
+                filteredList.append(data[j])
+                break
+    
+    os.system("cls")            
+    if(len(filteredList) > 0):
+        filteredList.insert(0, info)
+        printTxtFile(filteredList)
+    else:
+        print_top()
+        print("Keyword \"{}\" was not found in file, please try again".format(search))
