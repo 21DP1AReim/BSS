@@ -30,32 +30,36 @@ def printTxtFile(file): # outputs text file without any underscores (_)
     print("*" * 50)
     
 def sortByNum(data, index, descending): # function to sort a 2d list acorinding to a specific element
+
+
     # the 2d array will be sorted in either growing or deminishing order of a specific element
     info = data[0] # saved the first row in a local variable
     data.pop(0) # removes the first row so that we could sort the array based on actual values
     # the first row is only column labels
-    sortedList = [["0"]*len(data)]*len(data) # creates a list in equal size as the passed list in function
+    sortedList = [["0"]*len(data[0])]*len(data) # creates a list in equal size as the passed list in function
 
-    if (descending == True): # if user chose sorting to be descending
-        big = 0 
-        for j in range(0,len(data)): # this will repeat for every row
-            # after the largest number is found it then gets added to a new list and removed from passed list
-            for i in range(0,len(data)):
-                if(float(data[i][index]) >= float(data[big][index])):
-                    big = i
-            sortedList[j] = data[big]
-            data.pop(big)
-    else:
-        small = 0
-        # loop will repeat as many times as there are rows if 5 rows then will loop 5 times
-        for j in range(len(data)-1,-1,-1):
-            # loops through every row to find smallest number
-            # when found smallest number, saves that row, puts it in new list and removes from old list
-            for i in range(len(data)-1,-1,-1):
-                if(float(data[i][index]) >= float(data[small][index])):
-                    small = i
-            sortedList[j] = data[small]
-            data.pop(small)
+    lenData = len(data)
+    i = 0
+    while(lenData > 1):
+        lenData = len(data)
+        j = 0
+        big = 0
+        while(True):
+            if(descending == True):
+                if(float(data[j][index]) >= float(data[big][index])):
+                    big = j
+            else:
+                if(float(data[j][index]) <= float(data[big][index])):
+                    big = j
+            j+=1
+
+            if(j == lenData):
+                break
+        lenData = len(data)
+        sortedList[i] = data[big]
+        data.pop(big)
+        i += 1      
+
 
     sortedList.insert(0,info) # puts the labels back
     return printTxtFile(sortedList) # prints out the sorted list
@@ -63,29 +67,35 @@ def sortByNum(data, index, descending): # function to sort a 2d list acorinding 
 
 
 def sortByStr(data, index, descending): # does same as sortByNum(), but only works with strin
-    # most important difference is when comparing elements it compares it's length 
 
-    info = data[0]
-    data.pop(0)
-    sortedList = [["0"]*len(data)]*len(data)
-    
 
-    if (descending == True):
+    # the 2d array will be sorted in either growing or deminishing order of a specific element
+    info = data[0] # saved the first row in a local variable
+    data.pop(0) # removes the first row so that we could sort the array based on actual values
+    # the first row is only column labels
+    sortedList = [["0"]*len(data[0])]*len(data) # creates a list in equal size as the passed list in function
+
+    lenData = len(data)
+    i = 0
+    while(lenData > 1):
+        lenData = len(data)
+        j = 0
         big = 0
-        for j in range(0,len(data)):
-            for i in range(0,len(data)):
-                if(len(data[i][index]) >= len(data[big][index])):
-                    big = i
-            sortedList[j] = data[big]
-            data.pop(big)
-    else:
-        small = 0
-        for j in range(len(data)-1,-1,-1):
-            for i in range(len(data)-1,-1,-1):
-                if(len(data[i][index]) >= len(data[small][index])):
-                    small = i
-            sortedList[j] = data[small]
-            data.pop(small)
+        while(True):
+            if(descending == True):
+                if(len(data[j][index]) >= len(data[big][index])):
+                    big = j
+            else:
+                if(len(data[j][index]) <= len(data[big][index])):
+                    big = j
+            j+=1
+
+            if(j == lenData):
+                break
+        lenData = len(data)
+        sortedList[i] = data[big]
+        data.pop(big)
+        i += 1    
 
     sortedList.insert(0,info)
     return printTxtFile(sortedList)
