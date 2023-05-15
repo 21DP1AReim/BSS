@@ -207,7 +207,103 @@ def searchForUserInput(data):
     search = input("Enter a keyword to search for: ")
     for j in range(0,len(data)):
         for i in range(0,len(data[0])):
-            if search.upper() in data[j][i].upper():
+            if search.upper() in data[j][i].upper().replace("_", " "):
+                filteredList.append(data[j])
+                break
+    
+    os.system("cls")            
+    if(len(filteredList) > 0):
+        filteredList.insert(0, info)
+        printTxtFile(filteredList)
+    else:
+        print_top()
+        print("Keyword \"{}\" was not found in file, please try again".format(search))
+
+def summaryView(data, indexOfFile):
+    print_top()
+    info = data[0]
+    data.pop(0)
+    filteredList = []
+    search = input("Enter a keyword to search for: ")
+    for j in range(0,len(data)):
+        for i in range(0,len(data[0])):
+            if search.upper() in data[j][i].upper().replace("_", " "):
+                filteredList.append(data[j])
+                break
+    
+    os.system("cls")           
+    if(len(filteredList) > 0):
+        filteredList.insert(0, info)
+        printTxtFile(filteredList)
+        
+        print("There are {} rows that have your keyword".format(len(filteredList)-1))
+        searchForSimilair(filteredList, indexOfFile)
+    else:
+        print_top()
+        print("Keyword \"{}\" was not found in file, please try again".format(search))
+
+def searchForSimilair(data, indexOfFile):
+    arrForId = []
+    newArr = []
+    unique1 = 0
+    unique2 = 0
+    file = openTextFile("r", indexOfFile+1)
+    if(indexOfFile == 1):
+        
+        for i in range(len(data[0])):
+            if(data[0][i] == "Building_ID"):
+                unique1 = i    
+        for j in range(len(file[0])):
+            if(file[0][j] == "Building_ID"):
+                unique2 = j
+                
+    if(indexOfFile == 2):
+        for i in range(len(data[0])):
+            if(data[0][i] == "Apartment_ID"):
+                unique1 = i
+                
+        for j in range(len(file[0])):
+            if(file[0][j] == "Apartment_ID"):
+                unique2 = j
+#    if(indexOfFile == 3):
+#        for i in range(len(data[0])):
+#            if(data[0][i] == "Owner_ID"):
+#                unique = i
+    data.pop(0)
+    newArr.append(file[0])
+    for i in range(len(data)):
+        arrForId.append(data[i][unique1])
+        
+    for j in range(len(arrForId)):   
+        for i in range(len(file)):
+            if (arrForId[j] == file[i][unique2]):
+                newArr.append(file[i])
+                continue
+    print("And there are {} rows that are connected to your keyword".format(len(newArr)-1))
+    print("*" * 50)
+    mx = max((len(str(element)) for sub in newArr for element in sub)) + 1 # +1 to add more padding
+    for row in newArr:
+        print(" ".join(["{:<{mx}}".format(element.replace("_"," "),mx=mx) for element in row]))
+    print("*" * 50)
+    return newArr
+        
+def findWhatFile(data):
+    for i in range(0,len(data[0])):
+        if "Stāvu" in data[0][i]: # pârbauda vai ir buildings.txt
+            return "buildings.txt"
+        if "Dzīvokļa" in data[0][i]: # pârbauda vai ir apartments.txt
+            return "apartments.txt"
+        if "Vārds" in data[0][i]: # pârbauda vai ir apartment_owners.txt
+            return "apartment_owners.txt"
+
+def searchForSpecific(data,search):
+    print_top()
+    info = data[0]
+    data.pop(0)
+    filteredList = []
+    for j in range(0,len(data)):
+        for i in range(0,len(data[0])):
+            if search.upper() in data[j][i].upper().replace("_", " "):
                 filteredList.append(data[j])
                 break
     
