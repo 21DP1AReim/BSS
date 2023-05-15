@@ -74,7 +74,19 @@ while(True):
                 os.system("cls")
                 break
     elif(user_choice == 4): # if user chose to view summary
-        print("summary")
+        indexOfFile = userChoosesFile()
+        while(True):
+            if(indexOfFile == 4):
+                os.system("cls")
+                break
+            else:
+                file = openTextFile("r", indexOfFile)
+                summaryView(file,indexOfFile)
+                input("Press any button to continue...")
+                os.system("cls")
+                break
+
+                
     elif(user_choice == 5): # if user chose to edit data
         print("edit data")
     elif(user_choice == 6): # if user chose to exit program
