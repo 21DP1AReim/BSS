@@ -236,7 +236,7 @@ def summaryView(data, indexOfFile):
         filteredList.insert(0, info)
         printTxtFile(filteredList)
         
-        print("There are {} rows that have your keyword".format(len(filteredList)-1))
+        print("\nThere are {} rows that have your keyword".format(len(filteredList)-1))
         searchForSimilair(filteredList, indexOfFile)
     else:
         print_top()
@@ -247,9 +247,9 @@ def searchForSimilair(data, indexOfFile):
     newArr = []
     unique1 = 0
     unique2 = 0
-    file = openTextFile("r", indexOfFile+1)
+    
     if(indexOfFile == 1):
-        
+        file = openTextFile("r", indexOfFile+1)
         for i in range(len(data[0])):
             if(data[0][i] == "Building_ID"):
                 unique1 = i    
@@ -258,17 +258,23 @@ def searchForSimilair(data, indexOfFile):
                 unique2 = j
                 
     if(indexOfFile == 2):
+        file = openTextFile("r", indexOfFile+1)
         for i in range(len(data[0])):
             if(data[0][i] == "Apartment_ID"):
-                unique1 = i
-                
+                unique1 = i         
         for j in range(len(file[0])):
             if(file[0][j] == "Apartment_ID"):
                 unique2 = j
-#    if(indexOfFile == 3):
-#        for i in range(len(data[0])):
-#            if(data[0][i] == "Owner_ID"):
-#                unique = i
+                
+    if(indexOfFile == 3):
+        file = openTextFile("r", indexOfFile-1)
+        for i in range(len(data[0])):
+            if(data[0][i] == "Owner_ID"):
+                unique = i
+        for j in range(len(file[0])):
+            if(file[0][j] == "Owner_ID"):
+
+                unique2 = j
     data.pop(0)
     newArr.append(file[0])
     for i in range(len(data)):
@@ -279,7 +285,7 @@ def searchForSimilair(data, indexOfFile):
             if (arrForId[j] == file[i][unique2]):
                 newArr.append(file[i])
                 continue
-    print("And there are {} rows that are connected to your keyword".format(len(newArr)-1))
+    print("And there are {} rows that are connected to your keyword\n".format(len(newArr)-1))
     print("*" * 50)
     mx = max((len(str(element)) for sub in newArr for element in sub)) + 1 # +1 to add more padding
     for row in newArr:
