@@ -1,5 +1,10 @@
 import os
 
+def print_top():
+    print("*" * 50)
+    print(" "* 10, "BUILDING MANAGEMENT SYSTEM", " "*10)
+    print("*" * 50)
+    
 def userChoosesFile():
     print_top()
     print(" Which file would you like to open ?\n")
@@ -11,16 +16,11 @@ def userChoosesFile():
     user_choice = input("Enter your choice: ")
     if user_choice in("1", "2", "3", "4"): 
         return int(user_choice[0])
-    
     else:
         os.system("cls")
         return userChoosesFile()
 
 
-def print_top():
-    print("*" * 50)
-    print(" "* 10, "BUILDING MANAGEMENT SYSTEM", " "*10)
-    print("*" * 50)
 
 def printTxtFile(file): # outputs text file without any underscores (_)
     print_top()
@@ -30,8 +30,6 @@ def printTxtFile(file): # outputs text file without any underscores (_)
     print("*" * 50)
     
 def sortByNum(data, index, descending): # function to sort a 2d list acorinding to a specific element
-
-
     # the 2d array will be sorted in either growing or deminishing order of a specific element
     info = data[0] # saved the first row in a local variable
     data.pop(0) # removes the first row so that we could sort the array based on actual values
@@ -59,8 +57,6 @@ def sortByNum(data, index, descending): # function to sort a 2d list acorinding 
         sortedList[i] = data[big]
         data.pop(big)
         i += 1      
-
-
     sortedList.insert(0,info) # puts the labels back
     return printTxtFile(sortedList) # prints out the sorted list
     
@@ -146,9 +142,7 @@ def viewDataScreen(indexOfData): # main menu for data viewing
 
 
 def chooseSortMethodScreen(file): # screen for user to choose what to sort by
-    print("*" * 50)
-    print(" "* 10, " DATA SORTING ", " "*10)
-    print("*" * 50)
+    print_top()
     print("Choose a value to sort data by:\n")
     # will pick the options based on the first row in the text file( the labels)
     for i in range(len(file[0])): 
@@ -235,9 +229,12 @@ def summaryView(data, indexOfFile):
     if(len(filteredList) > 0):
         filteredList.insert(0, info)
         printTxtFile(filteredList)
-        
         print("\nThere are {} rows that have your keyword".format(len(filteredList)-1))
-        searchForSimilair(filteredList, indexOfFile)
+        if(indexOfFile == 2):
+            print('No file uses Apartment_ID"\n')
+        else:
+            
+            searchForSimilair(filteredList, indexOfFile)
     else:
         print_top()
         print("Keyword \"{}\" was not found in file, please try again".format(search))
@@ -273,7 +270,6 @@ def searchForSimilair(data, indexOfFile):
                 unique = i
         for j in range(len(file[0])):
             if(file[0][j] == "Owner_ID"):
-
                 unique2 = j
     data.pop(0)
     newArr.append(file[0])
