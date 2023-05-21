@@ -81,6 +81,7 @@ while(True):
                 break
             else:
                 file = openTextFile("r", indexOfFile)
+                os.system("cls")
                 summaryView(file,indexOfFile)
                 input("Press any button to continue...")
                 os.system("cls")
