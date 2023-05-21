@@ -1,6 +1,6 @@
-Building_ID Adrese Dzīvokļu_Skaits Stāvu_Skaits Platums
-1 Andreja_21 100 10 100.50
-2 Liepiņas_40 2202 200 212
-3 Jekaba_Prieka_iela_21 33 333 333
-4 Prieka_233 1333330 20 30
-5 Riepas_A1 1 2 3 
+Building_ID Adrese Dzīvokļu_Skaits Stāvu_Skaits 
+1 Andreja_21 55 15 
+2 Liepiņas_40 12 3
+3 Jekaba_Prieka_iela_21 20 5
+4 Prieka_233 13 5 
+5 Riepas_A1 6 3  
